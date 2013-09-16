@@ -1,0 +1,43 @@
+#Kuan Xing <kxing@mtu.edu>
+
+#When I used the make file provided under Lab/Lab3, there is a problem for compile failure, and I work this out below:
+
+#1. Rename the "makefile1" to "makefile"  (the makefile under lab/lab3 is named makefile0 which is against the rule of make)
+#I attached my whole makefile here, if the makefile can not work, please rename this file 'makefile' and run it.
+
+#I also add an additional function for scence rotation, so it will be easy to look around this scence.  Just press 'r' to start or stop.
+
+#================================================================================
+
+# CS4611 lab3 makefile  Kuan Xing <kxing@mtu.edu> 
+
+# name of your executable
+EXEC=lab3
+
+# list your .h files here, separated by spaces
+HEADERS=
+
+# list your .c or .cpp files here, separated by spaces
+SOURCE=lab3.cpp
+
+CC=g++
+
+# Add -Wconversion below to get warnings when you do conversions that will
+# result in loss of precision.
+#
+# Add -Wextra to get additional warning messages
+FLAGS=-Wall -g
+
+ifeq ($(shell "uname"),Darwin)
+# If compiling on Mac
+	LIBS=-framework GLUT -framework OpenGL
+else
+# If compiling on Linux
+	LIBS=-lGLEW -lglut -lX11 -lGL -lGLU
+endif
+
+$(EXEC): $(SOURCE) $(HEADERS)
+	$(CC) -o $(EXEC) $(FLAGS) $(LIBS) $(SOURCE)
+
+clean:
+	rm -f $(EXEC) *.o
